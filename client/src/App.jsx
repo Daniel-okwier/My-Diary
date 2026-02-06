@@ -1,9 +1,14 @@
-export default function App() {
+import AppShell from "./layouts/AppShell";
+import Navbar from "./components/layout/Navbar";
+import Home from "./pages/Home";
+
+function App() {
   return (
-    <div className="min-h-screen bg-bg text-primary flex items-center justify-center">
-      <h1 className="text-5xl font-black text-accent">
-        MyDiary
-      </h1>
-    </div>
+    <AppShell>
+      <Navbar />
+      <Home />
+    </AppShell>
   );
 }
+
+export default App;
