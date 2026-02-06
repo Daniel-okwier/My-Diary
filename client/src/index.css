@@ -2,10 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Define CSS variables in one place */
 @layer base {
   :root {
+    /* Light mode */
+    --bg-main: #fdfbf7;
+    --bg-secondary: #f6efe6;
+
+    --text-primary: #2b2b2b;
+    --text-muted: #6b6b6b;
+
+    --primary: #c96a15;;
+    --border: rgba(0, 0, 0, 0.08);
+    
+    /* UI Font Variables */
     --font-ui: 'Inter', system-ui, sans-serif;
     --font-diary: 'Playfair Display', serif;
+  }
+
+  .dark {
+    /* Dark mode */
+    --bg-main: #0f0f0f;
+    --bg-secondary: #161616;
+
+    --text-primary: #f5f5f5;
+    --text-muted: #a1a1a1;
+
+    --primary: #f0a04b;
+    --border: rgba(255, 255, 255, 0.12);
   }
 
   body {
@@ -30,33 +54,3 @@
       );
   }
 }
-
-
-@layer base {
-  :root {
-    /* Light mode */
-    --bg-main: #fdfbf7;
-    --bg-secondary: #f6efe6;
-
-    --text-primary: #2b2b2b;
-    --text-muted: #6b6b6b;
-
-    --primary: #e38b29;
-    --border: rgba(0, 0, 0, 0.08);
-  }
-
-  .dark {
-    /* Dark mode */
-    --bg-main: #0f0f0f;
-    --bg-secondary: #161616;
-
-    --text-primary: #f5f5f5;
-    --text-muted: #a1a1a1;
-
-    --primary: #f0a04b;
-    --border: rgba(255, 255, 255, 0.12);
-  }
-}
-
-
-

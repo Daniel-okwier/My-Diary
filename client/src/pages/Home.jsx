@@ -13,9 +13,10 @@ export default function Home() {
       </p>
 
       <div className="mt-10 flex justify-center gap-4">
-        <button className="rounded-full bg-primary px-6 py-3 text-white font-ui hover:opacity-90 transition">
-          Start writing
-        </button>
+       <button className="rounded-full bg-primary px-6 py-3 text-white border border-primary hover:opacity-90 transition">
+  Start writing
+</button>
+
 
         <button className="rounded-full border border-border px-6 py-3 font-ui hover:bg-muted transition">
           Learn more
