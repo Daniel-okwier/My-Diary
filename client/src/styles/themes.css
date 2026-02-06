@@ -1,0 +1,23 @@
+/* ===============================
+   MYDIARY THEME TOKENS
+   =============================== */
+
+:root {
+  /* Light Mode (Diary) */
+  --bg-main: #fff7ed;        /* parchment */
+  --bg-card: #ffedd5;
+  --text-primary: #3f2d1c;   /* warm brown */
+  --text-secondary: #7c5c3e;
+  --accent: #f59e0b;         /* amber */
+  --border-soft: #e7d3b0;
+}
+
+/* Dark Mode (Startup / Night Writing) */
+.dark {
+  --bg-main: #0e1621;        /* ink blue */
+  --bg-card: #111827;
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --accent: #fb923c;        /* warm orange */
+  --border-soft: #1f2937;
+}

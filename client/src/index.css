@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: theme(fontFamily.sans);
+}

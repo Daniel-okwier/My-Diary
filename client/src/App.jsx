@@ -1,13 +1,9 @@
-import React from 'react'
-
-function App() { 
+export default function App() {
   return (
-    <div className="p-8">
-      <h1 className="text-4xl font-bold text-blue-500">MyDiary</h1>
-      <h1 className="font-sans text-xl">UI Text (Space Grotesk)</h1>
-      <p className="font-diary text-lg italic">Dear Diary... (Playfair Display)</p>
+    <div className="min-h-screen bg-bg text-primary flex items-center justify-center">
+      <h1 className="text-5xl font-black text-accent">
+        MyDiary
+      </h1>
     </div>
-  )
+  );
 }
-
-export default App 

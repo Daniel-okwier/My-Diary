@@ -1,0 +1,9 @@
+.bg-paper {
+  background-image: url("/textures/paper.png");
+  background-size: cover;
+}
+
+.bg-noise {
+  background-image: url("/textures/noise.png");
+  background-repeat: repeat;
+}
