@@ -1,4 +1,5 @@
-// src/pages/Timeline.jsx
+import { useState } from "react";
+import EntryRead from "./EntryRead";
 
 const entries = [
   {
@@ -6,25 +7,37 @@ const entries = [
     date: "2026-02-01",
     title: "A quiet morning",
     excerpt:
-      "The sun rose softly today, and for a moment the world felt kind. I sat still, listening to the city breathe.",
+      "The sun rose softly today, and for a moment the world felt kind...",
+    content:
+      "The sun rose softly today, and for a moment the world felt kind.\n\nI sat by the window, listening to the city breathe. There was no rush, no weight — just presence.",
+    image: null,
+    audio: null,
   },
   {
     id: 2,
     date: "2026-01-28",
     title: "Voices of the past",
     excerpt:
-      "I heard laughter that reminded me of things I almost forgot. Memories have a strange way of returning.",
-  },
-  {
-    id: 3,
-    date: "2026-01-20",
-    title: "A heavy evening",
-    excerpt:
-      "Some days sit heavier on the heart than others. Tonight was one of those nights.",
+      "I heard laughter that reminded me of things I almost forgot...",
+    content:
+      "I heard laughter that reminded me of things I almost forgot.\n\nMemories have a strange way of returning when you least expect them.",
+    image: null,
+    audio: null,
   },
 ];
 
 export default function Timeline() {
+  const [selectedEntry, setSelectedEntry] = useState(null);
+
+  if (selectedEntry) {
+    return (
+      <EntryRead
+        entry={selectedEntry}
+        onBack={() => setSelectedEntry(null)}
+      />
+    );
+  }
+
   return (
     <section className="mt-20 mx-auto max-w-3xl px-4">
       {/* Header */}
@@ -37,11 +50,12 @@ export default function Timeline() {
         </p>
       </header>
 
-      {/* Timeline entries */}
+      {/* Timeline */}
       <div className="space-y-8">
         {entries.map((entry) => (
           <article
             key={entry.id}
+            onClick={() => setSelectedEntry(entry)}
             className="cursor-pointer rounded-2xl border border-border bg-secondary p-6 transition hover:shadow-md"
           >
             <time className="text-xs uppercase tracking-wide text-muted-foreground">
