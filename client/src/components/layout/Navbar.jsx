@@ -9,12 +9,12 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="flex items-center justify-between py-6">
+      <nav className="flex flex-col gap-4 py-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="font-diary text-2xl tracking-wide">
           MyDiary
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center justify-between gap-3 sm:justify-end sm:gap-4">
           <button
             onClick={toggleTheme}
             className="rounded-full border border-border px-3 py-1 text-sm hover:bg-muted transition"

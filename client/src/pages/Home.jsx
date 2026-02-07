@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <section className="mt-24 text-center">
-      <h1 className="font-diary text-5xl leading-tight">
+      <h1 className="font-diary text-4xl leading-tight sm:text-5xl">
         Your life,
         <br />
         written beautifully.
@@ -12,7 +12,7 @@ export default function Home() {
         preserved chronologically, styled like timeless stories.
       </p>
 
-      <div className="mt-10 flex justify-center gap-4">
+      <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
        <button className="rounded-full bg-primary px-6 py-3 text-white border border-primary hover:opacity-90 transition">
   Start writing
 </button>

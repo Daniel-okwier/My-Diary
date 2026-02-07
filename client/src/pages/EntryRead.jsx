@@ -12,7 +12,7 @@ export default function EntryRead({ entry, onBack }) {
       </button>
 
       {/* Entry container */}
-      <article className="rounded-2xl border border-border bg-secondary p-8 shadow-sm">
+      <article className="rounded-2xl border border-border bg-secondary p-6 sm:p-8 shadow-sm">
         {/* Date */}
         <time className="block text-xs uppercase tracking-wide text-muted-foreground">
           {new Date(entry.date).toDateString()}
@@ -24,7 +24,7 @@ export default function EntryRead({ entry, onBack }) {
         </h1>
 
         {/* Content */}
-        <div className="mt-8 space-y-6 font-diary text-lg leading-relaxed text-primary">
+        <div className="mt-8 space-y-6 font-diary text-base sm:text-lg leading-relaxed text-primary">
           {entry.content.split("\n").map((para, i) => (
             <p key={i}>{para}</p>
           ))}

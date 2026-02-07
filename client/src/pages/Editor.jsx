@@ -1,6 +1,6 @@
 export default function Editor() {
   return (
-    <section className="mt-20 mx-auto max-w-3xl">
+    <section className="mt-16 mx-auto max-w-3xl px-4 sm:mt-20">
       {/* Header */}
       <header className="mb-8">
         <h1 className="font-diary text-4xl">
@@ -20,7 +20,7 @@ export default function Editor() {
       </div>
 
       {/* Attachments */}
-      <div className="mt-6 flex gap-4">
+      <div className="mt-6 flex flex-wrap gap-3">
         <button className="rounded-full border border-border px-4 py-2 text-sm hover:bg-muted transition">
           📷 Image
         </button>

@@ -39,9 +39,9 @@ export default function Timeline() {
   }
 
   return (
-    <section className="mt-20 mx-auto max-w-3xl px-4">
+    <section className="mt-16 mx-auto max-w-3xl px-4 sm:mt-20">
       {/* Header */}
-      <header className="mb-12 text-center">
+      <header className="mb-8 text-center sm:mb-12">
         <h1 className="font-diary text-4xl">
           Your Memories
         </h1>
