@@ -62,3 +62,14 @@ export const login = async (req, res) => {
     res.status(500).json({ message: "Login failed" });
   }
 };
+
+export const getMe = async (req, res) => {
+  try {
+    // req.user is injected by protect middleware
+    res.json({
+      user: req.user,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch user" });
+  }
+};
