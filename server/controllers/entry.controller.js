@@ -1,24 +1,49 @@
 import Entry from "../models/Entry.js";
+import { generateTitle, detectMood } from "../services/ai.service.js";
+
 
 
 // CREATE ENTRY
 export const createEntry = async (req, res) => {
   try {
-    const { title, content, mood, media } = req.body;
+    const { title, content, media } = req.body;
+
+    if (!content) {
+      return res.status(400).json({ message: "Content is required" });
+    }
+
+    let finalTitle = title;
+    let mood = "neutral";
+
+    // Try AI enhancements (non-blocking safe pattern)
+    try {
+      // Auto-generate title if missing
+      if (!title || title.trim() === "") {
+        finalTitle = await generateTitle(content);
+      }
+
+      // Detect mood
+      mood = await detectMood(content);
+    } catch (aiError) {
+      console.error("AI processing failed:", aiError.message);
+      // Continue without failing the request
+    }
 
     const entry = await Entry.create({
       user: req.user._id,
-      title,
+      title: finalTitle,
       content,
       mood,
       media,
     });
 
     res.status(201).json(entry);
+
   } catch (error) {
     res.status(500).json({ message: "Failed to create entry" });
   }
 };
+
 
 
 // GET ALL USER ENTRIES
@@ -56,12 +81,24 @@ export const getEntry = async (req, res) => {
 // UPDATE ENTRY
 export const updateEntry = async (req, res) => {
   try {
+    const { content } = req.body;
+
+    let updatedFields = { ...req.body };
+
+    if (content) {
+      try {
+        updatedFields.mood = await detectMood(content);
+      } catch (aiError) {
+        console.error("AI mood update failed");
+      }
+    }
+
     const entry = await Entry.findOneAndUpdate(
       {
         _id: req.params.id,
         user: req.user._id,
       },
-      req.body,
+      updatedFields,
       { new: true }
     );
 
@@ -70,10 +107,12 @@ export const updateEntry = async (req, res) => {
     }
 
     res.json(entry);
+
   } catch (error) {
     res.status(500).json({ message: "Failed to update entry" });
   }
 };
+
 
 
 // DELETE ENTRY
