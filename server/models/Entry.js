@@ -18,7 +18,7 @@ const entrySchema = new mongoose.Schema(
     },
     mood: {
       type: String,
-      default: "neutral", // future AI integration
+      default: "neutral", 
     },
     media: [
       {
@@ -28,6 +28,8 @@ const entrySchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+entrySchema.index({ user: 1, createdAt: -1 });
 
 const Entry = mongoose.model("Entry", entrySchema);
 export default Entry;

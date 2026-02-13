@@ -49,14 +49,38 @@ export const createEntry = async (req, res) => {
 // GET ALL USER ENTRIES
 export const getEntries = async (req, res) => {
   try {
-    const entries = await Entry.find({ user: req.user._id })
-      .sort({ createdAt: -1 });
+    const page = parseInt(req.query.page) || 1;
+    const limit = Math.min(parseInt(req.query.limit) || 10, 50); // max 50
+    const skip = (page - 1) * limit;
 
-    res.json(entries);
+    const filter = { user: req.user._id };
+
+    // Optional mood filtering
+    if (req.query.mood) {
+      filter.mood = req.query.mood;
+    }
+
+    const [entries, total] = await Promise.all([
+      Entry.find(filter)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit),
+
+      Entry.countDocuments(filter),
+    ]);
+
+    res.json({
+      page,
+      totalPages: Math.ceil(total / limit),
+      totalEntries: total,
+      entries,
+    });
+
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch entries" });
   }
 };
+
 
 
 // GET SINGLE ENTRY
