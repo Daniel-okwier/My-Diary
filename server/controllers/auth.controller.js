@@ -1,8 +1,15 @@
+import { validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 import { generateToken } from "../utils/generateToken.js";
 
 export const register = async (req, res) => {
+
+const errors = validationResult(req);
+if (!errors.isEmpty()) {
+  return res.status(400).json({ errors: errors.array() });
+}
+
   try {
     const { name, email, password } = req.body;
 
@@ -35,6 +42,12 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
+    
+    const errors = validationResult(req);
+if (!errors.isEmpty()) {
+  return res.status(400).json({ errors: errors.array() });
+}
+
   try {
     const { email, password } = req.body;
 
