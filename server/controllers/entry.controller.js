@@ -1,48 +1,55 @@
 import Entry from "../models/Entry.js";
 import { generateTitle, detectMood } from "../services/ai.service.js";
+import cloudinary from "../config/cloudinary.js"
 
 
 
 // CREATE ENTRY
+
 export const createEntry = async (req, res) => {
   try {
-    const { title, content, media } = req.body;
+    const { title, content } = req.body
 
-    if (!content) {
-      return res.status(400).json({ message: "Content is required" });
+    let imageUrl = null
+    let audioUrl = null
+
+    // Upload image if exists
+    if (req.files?.image) {
+      const result = await cloudinary.uploader.upload(
+        req.files.image[0].path,
+        { folder: "myDiary/images" }
+      )
+      imageUrl = result.secure_url
     }
 
-    let finalTitle = title;
-    let mood = "neutral";
-
-    // Try AI enhancements (non-blocking safe pattern)
-    try {
-      // Auto-generate title if missing
-      if (!title || title.trim() === "") {
-        finalTitle = await generateTitle(content);
-      }
-
-      // Detect mood
-      mood = await detectMood(content);
-    } catch (aiError) {
-      console.error("AI processing failed:", aiError.message);
-      // Continue without failing the request
+    // Upload audio if exists
+    if (req.files?.audio) {
+      const result = await cloudinary.uploader.upload(
+        req.files.audio[0].path,
+        {
+          resource_type: "video", // Required for audio
+          folder: "myDiary/audio"
+        }
+      )
+      audioUrl = result.secure_url
     }
 
-    const entry = await Entry.create({
-      user: req.user._id,
-      title: finalTitle,
+    const entry = await Diary.create({
+      user: req.user.id,
+      title,
       content,
-      mood,
-      media,
-    });
+      imageUrl,
+      audioUrl
+    })
 
-    res.status(201).json(entry);
+    res.status(201).json(entry)
 
   } catch (error) {
-    res.status(500).json({ message: "Failed to create entry" });
+    console.error(error)
+    res.status(500).json({ message: "Failed to create entry" })
   }
-};
+}
+
 
 
 

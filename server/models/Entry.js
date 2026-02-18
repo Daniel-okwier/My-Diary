@@ -7,24 +7,29 @@ const entrySchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+
     title: {
       type: String,
       trim: true,
-      default: "",
     },
+
     content: {
       type: String,
       required: true,
     },
+
     mood: {
       type: String,
-      default: "neutral", 
+      default: "neutral",
     },
-    media: [
-      {
-        type: String,
-      },
-    ],
+
+    imageUrl: {
+      type: String,
+    },
+
+    audioUrl: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
@@ -32,4 +37,5 @@ const entrySchema = new mongoose.Schema(
 entrySchema.index({ user: 1, createdAt: -1 });
 
 const Entry = mongoose.model("Entry", entrySchema);
+
 export default Entry;

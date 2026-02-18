@@ -10,6 +10,7 @@ import {
 import { protect } from "../middleware/auth.middleware.js";
 import { body } from "express-validator";
 import { query } from "express-validator";
+import { upload } from "../middleware/upload.js"
 
 
 
@@ -19,13 +20,13 @@ router.use(protect);
 
 router.post(
   "/",
-  [
-    body("content")
-      .notEmpty()
-      .withMessage("Content is required"),
-  ],
+  protect,
+  upload.fields([
+    { name: "image", maxCount: 1 },
+    { name: "audio", maxCount: 1 }
+  ]),
   createEntry
-);
+)
 
 router.get(
   "/",
