@@ -1,3 +1,5 @@
+import { Image, Mic, Save } from "lucide-react"
+
 export default function Editor() {
   return (
     <section className="mt-16 mx-auto max-w-3xl px-4 sm:mt-20">
@@ -21,13 +23,23 @@ export default function Editor() {
 
       {/* Attachments */}
       <div className="mt-6 flex flex-wrap gap-3">
-        <button className="rounded-full border border-border px-4 py-2 text-sm hover:bg-muted transition">
-          📷 Image
-        </button>
-        <button className="rounded-full border border-border px-4 py-2 text-sm hover:bg-muted transition">
-          🎙 Audio
-        </button>
-      </div>
+  <button className="flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted transition">
+    <Image size={16} />
+    Image
+  </button>
+
+  <button className="flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted transition">
+    <Mic size={16} />
+    Audio
+  </button>
+</div>
+
+<div className="mt-10 text-right">
+  <button className="flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-white hover:opacity-90 transition">
+    <Save size={16} />
+    Save entry
+  </button>
+</div>
 
       {/* Save */}
       <div className="mt-10 text-right">

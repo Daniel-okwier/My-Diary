@@ -1,9 +1,15 @@
+import Sidebar from "../components/layout/Sidebar"
+
 export default function AppShell({ children }) {
   return (
-    <div className="min-h-screen bg-app">
-      <div className="relative mx-auto min-h-screen max-w-7xl px-4 sm:px-6">
+    <div className="min-h-screen bg-background text-foreground flex">
+      
+      <Sidebar />
+
+      <main className="flex-1 p-6 md:p-10">
         {children}
-      </div>
+      </main>
+
     </div>
-  );
+  )
 }

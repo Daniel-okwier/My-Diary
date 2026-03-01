@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTheme } from "../../hooks/useTheme";
+import { Sun, Moon, User } from "lucide-react"
 import AuthModal from "../auth/AuthModal";
 
 export default function Navbar() {
@@ -16,11 +17,11 @@ export default function Navbar() {
 
         <div className="flex items-center justify-between gap-3 sm:justify-end sm:gap-4">
           <button
-            onClick={toggleTheme}
-            className="rounded-full border border-border px-3 py-1 text-sm hover:bg-muted transition"
-          >
-            {theme === "dark" ? "☀️" : "🌙"}
-          </button>
+  onClick={toggleTheme}
+  className="rounded-full border border-border p-2 hover:bg-muted transition"
+>
+  {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+</button>
 
           {!isAuthenticated ? (
             <button
@@ -31,8 +32,8 @@ export default function Navbar() {
             </button>
           ) : (
             <div className="h-9 w-9 rounded-full bg-muted flex items-center justify-center">
-              👤
-            </div>
+  <User size={16} />
+</div>
           )}
         </div>
       </nav>
