@@ -1,14 +1,16 @@
-import Sidebar from "../components/layout/Sidebar"
+import Sidebar from "@/layouts/Sidebar"
 
 export default function AppShell({ children }) {
   return (
-    <div className="min-h-screen bg-background text-foreground flex">
-      
+    <div className="flex min-h-screen bg-background text-foreground">
+
       <Sidebar />
 
-      <main className="flex-1 p-6 md:p-10">
+      <div className="flex flex-col flex-1">
+
         {children}
-      </main>
+
+      </div>
 
     </div>
   )
