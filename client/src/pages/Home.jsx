@@ -1,20 +1,44 @@
+import { motion } from "framer-motion"
+
 export default function Home() {
+
   return (
+
     <div className="bg-app min-h-screen">
 
-      <section className="max-w-6xl mx-auto px-6 py-24 text-center">
+      {/* HERO */}
 
-        <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
-          Your private space
+      <section className="max-w-6xl mx-auto px-6 py-28 text-center">
+
+        <motion.h1
+          initial={{opacity:0,y:40}}
+          animate={{opacity:1,y:0}}
+          transition={{duration:0.6}}
+          className="text-5xl md:text-6xl font-diary font-bold leading-tight mb-6"
+        >
+
+          Capture your thoughts.
           <br />
-          to <span className="text-primary">think, reflect, and grow</span>
-        </h1>
 
-        <p className="text-lg text-[var(--text-muted)] max-w-2xl mx-auto mb-10">
-          MyDiary is a modern journaling platform designed for thinkers,
-          builders, and creators. Capture your daily experiences, track
-          personal growth, and unlock insights with powerful AI reflections.
-        </p>
+          <span className="text-primary">
+            Understand your life.
+          </span>
+
+        </motion.h1>
+
+
+        <motion.p
+          initial={{opacity:0,y:30}}
+          animate={{opacity:1,y:0}}
+          transition={{duration:0.8}}
+          className="text-lg text-muted max-w-2xl mx-auto mb-10"
+        >
+
+          MyDiary is a modern journaling platform designed to help you reflect,
+          organize your memories, and uncover insights about your personal growth.
+
+        </motion.p>
+
 
         <div className="flex justify-center gap-4">
 
@@ -29,12 +53,13 @@ export default function Home() {
             href="/timeline"
             className="px-6 py-3 rounded-xl border border-border"
           >
-            See Demo
+            View Timeline
           </a>
 
         </div>
 
       </section>
+
 
       {/* FEATURES */}
 
@@ -42,30 +67,43 @@ export default function Home() {
 
         <Feature
           title="Private Journaling"
-          text="Your thoughts remain yours. Secure and private diary entries designed for clarity and reflection."
+          text="Capture your thoughts and experiences in a secure and private environment."
         />
 
         <Feature
           title="AI Reflection"
-          text="AI analyzes your entries to reveal patterns, emotions, and insights you might miss."
+          text="Understand patterns in your life through AI generated reflections."
         />
 
         <Feature
-          title="Timeline Memory"
-          text="Revisit memories with a beautiful chronological timeline of your life experiences."
+          title="Life Timeline"
+          text="Visualize your memories and milestones across time."
         />
 
       </section>
 
     </div>
+
   )
 }
 
-function Feature({ title, text }) {
+
+function Feature({title,text}) {
+
   return (
-    <div className="bg-[var(--bg-secondary)] border border-border rounded-xl p-6">
-      <h3 className="font-semibold text-lg mb-2">{title}</h3>
-      <p className="text-[var(--text-muted)]">{text}</p>
+
+    <div className="bg-surface border border-border rounded-xl p-6 shadow-soft">
+
+      <h3 className="font-semibold text-lg mb-2">
+        {title}
+      </h3>
+
+      <p className="text-muted">
+        {text}
+      </p>
+
     </div>
+
   )
+
 }
