@@ -1,77 +1,124 @@
-import { useState } from "react";
-import EntryRead from "./EntryRead";
+import { Card, CardContent } from "@/components/ui/card"
+import { motion } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 
-const entries = [
+const mockEntries = [
   {
     id: 1,
-    date: "2026-02-01",
-    title: "A quiet morning",
-    excerpt:
-      "The sun rose softly today, and for a moment the world felt kind...",
-    content:
-      "The sun rose softly today, and for a moment the world felt kind.\n\nI sat by the window, listening to the city breathe. There was no rush, no weight — just presence.",
-    image: null,
-    audio: null,
+    date: "March 18, 2026",
+    title: "A productive day",
+    mood: "🙂",
+    preview: "Today I made great progress on my diary app...",
+    hasAudio: true,
+    hasImage: true
   },
   {
     id: 2,
-    date: "2026-01-28",
-    title: "Voices of the past",
-    excerpt:
-      "I heard laughter that reminded me of things I almost forgot...",
-    content:
-      "I heard laughter that reminded me of things I almost forgot.\n\nMemories have a strange way of returning when you least expect them.",
-    image: null,
-    audio: null,
+    date: "March 17, 2026",
+    title: "Feeling reflective",
+    mood: "😐",
+    preview: "Spent some time thinking about my goals...",
+    hasAudio: false,
+    hasImage: false
   },
-];
+  {
+    id: 3,
+    date: "March 16, 2026",
+    title: "Tough day",
+    mood: "😔",
+    preview: "Work was exhausting today but I learned something important...",
+    hasAudio: true,
+    hasImage: false
+  }
+]
 
 export default function Timeline() {
-  const [selectedEntry, setSelectedEntry] = useState(null);
 
-  if (selectedEntry) {
-    return (
-      <EntryRead
-        entry={selectedEntry}
-        onBack={() => setSelectedEntry(null)}
-      />
-    );
-  }
+  const navigate = useNavigate()
 
   return (
-    <section className="mt-16 mx-auto max-w-3xl px-4 sm:mt-20">
-      {/* Header */}
-      <header className="mb-8 text-center sm:mb-12">
-        <h1 className="font-diary text-4xl">
-          Your Memories
-        </h1>
-        <p className="mt-3 text-muted-foreground">
-          A chronological collection of your life’s moments.
-        </p>
-      </header>
 
-      {/* Timeline */}
-      <div className="space-y-8">
-        {entries.map((entry) => (
-          <article
-            key={entry.id}
-            onClick={() => setSelectedEntry(entry)}
-            className="cursor-pointer rounded-2xl border border-border bg-secondary p-6 transition hover:shadow-md"
-          >
-            <time className="text-xs uppercase tracking-wide text-muted-foreground">
-              {new Date(entry.date).toDateString()}
-            </time>
+    <div className="max-w-3xl mx-auto space-y-6">
 
-            <h2 className="mt-2 font-diary text-2xl">
-              {entry.title}
-            </h2>
+      <h1 className="text-3xl font-diary">
+        Your Timeline
+      </h1>
 
-            <p className="mt-3 leading-relaxed text-muted-foreground">
-              {entry.excerpt}
-            </p>
-          </article>
-        ))}
+      <div className="relative">
+
+        {/* Timeline vertical line */}
+
+        <div className="absolute left-3 top-0 bottom-0 w-[2px] bg-border"/>
+
+        <div className="space-y-6">
+
+          {mockEntries.map((entry) => (
+
+            <motion.div
+              key={entry.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="flex gap-4"
+            >
+
+              {/* timeline dot */}
+
+              <div className="w-6 h-6 rounded-full bg-primary mt-3"/>
+
+              <Card
+                className="flex-1 cursor-pointer hover:shadow-md transition"
+                onClick={() => navigate(`/entry/${entry.id}`)}
+              >
+
+                <CardContent className="p-5 space-y-2">
+
+                  <div className="flex justify-between items-center">
+
+                    <h2 className="text-lg font-semibold">
+                      {entry.title}
+                    </h2>
+
+                    <span className="text-xl">
+                      {entry.mood}
+                    </span>
+
+                  </div>
+
+                  <p className="text-sm text-muted">
+                    {entry.date}
+                  </p>
+
+                  <p className="text-sm text-muted">
+                    {entry.preview}
+                  </p>
+
+                  <div className="flex gap-3 text-xs text-muted pt-1">
+
+                    {entry.hasAudio && (
+                      <span>🎤 Audio</span>
+                    )}
+
+                    {entry.hasImage && (
+                      <span>🖼 Image</span>
+                    )}
+
+                  </div>
+
+                </CardContent>
+
+              </Card>
+
+            </motion.div>
+
+          ))}
+
+        </div>
+
       </div>
-    </section>
-  );
+
+    </div>
+
+  )
+
 }
