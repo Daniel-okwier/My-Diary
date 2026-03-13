@@ -1,88 +1,71 @@
-import { validationResult } from "express-validator";
-import bcrypt from "bcryptjs";
-import User from "../models/User.js";
-import { generateToken } from "../utils/generateToken.js";
+import { validationResult } from "express-validator"
+import { registerService, loginService } from "../services/auth.service.js"
+
 
 export const register = async (req, res) => {
 
-const errors = validationResult(req);
-if (!errors.isEmpty()) {
-  return res.status(400).json({ errors: errors.array() });
-}
+  const errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() })
+  }
 
   try {
-    const { name, email, password } = req.body;
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "Email already in use" });
-    }
+    const { name, email, password } = req.body
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const result = await registerService(name, email, password)
 
-    const user = await User.create({
-      name,
-      email,
-      password: hashedPassword,
-    });
+    res.status(201).json(result)
 
-    const token = generateToken(user._id);
-
-    res.status(201).json({
-      token,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-      },
-    });
   } catch (error) {
-    res.status(500).json({ message: "Registration failed" });
+
+    res.status(400).json({ message: error.message })
+
   }
-};
+
+}
+
 
 export const login = async (req, res) => {
-    
-    const errors = validationResult(req);
-if (!errors.isEmpty()) {
-  return res.status(400).json({ errors: errors.array() });
+
+  const errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() })
+  }
+
+  try {
+
+    const { email, password } = req.body
+
+    const result = await loginService(email, password)
+
+    res.json(result)
+
+  } catch (error) {
+
+    res.status(400).json({ message: error.message })
+
+  }
+
 }
 
-  try {
-    const { email, password } = req.body;
-
-    const user = await User.findOne({ email }).select("+password");
-    if (!user) {
-      return res.status(400).json({ message: "Invalid credentials" });
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
-    }
-
-    const token = generateToken(user._id);
-
-    res.json({
-      token,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-      },
-    });
-  } catch (error) {
-    res.status(500).json({ message: "Login failed" });
-  }
-};
 
 export const getMe = async (req, res) => {
+
   try {
-    // req.user is injected by protect middleware
+
     res.json({
-      user: req.user,
-    });
+      user: req.user
+    })
+
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetch user" });
+
+    res.status(500).json({
+      message: "Failed to fetch user"
+    })
+
   }
-};
+
+}

@@ -21,10 +21,10 @@ router.use(protect);
 router.post(
   "/",
   protect,
-  upload.fields([
-    { name: "image", maxCount: 1 },
-    { name: "audio", maxCount: 1 }
-  ]),
+ upload.fields([
+ { name: "image", maxCount: 5 },
+ { name: "audio", maxCount: 3 }
+])
   createEntry
 )
 

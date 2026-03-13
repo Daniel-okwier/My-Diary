@@ -7,8 +7,9 @@ import rateLimit from "express-rate-limit"
 import { env } from "./config/env.js"
 
 import authRoutes from "./routes/auth.routes.js"
-import diaryRoutes from "./routes/diary.routes.js"
+//import diaryRoutes from "./routes/diary.routes.js"
 import aiRoutes from "./routes/ai.routes.js"
+import oauthRoutes from "./routes/oauth.routes.js"
 
 const app = express()
 
@@ -37,9 +38,9 @@ if (env.nodeEnv === "development") {
 
 // ---------------- Routes ----------------
 app.use("/api/auth", authRoutes)
-app.use("/api/diary", diaryRoutes)
+//app.use("/api/diary", diaryRoutes)
 app.use("/api/ai", aiRoutes)
-
+app.use("/api/oauth", oauthRoutes)
 app.get("/", (req, res) => {
   res.json({ message: "MyDiary API running " })
 })
