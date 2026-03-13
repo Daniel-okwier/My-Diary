@@ -1,56 +1,66 @@
-export default function EntryRead({ entry, onBack }) {
-  if (!entry) return null;
+import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+
+import { getEntryById } from "@/services/entryService"
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+
+export default function EntryDetail() {
+
+  const { id } = useParams()
+
+  const [entry, setEntry] = useState(null)
+
+  useEffect(() => {
+
+    const fetchEntry = async () => {
+
+      const data = await getEntryById(id)
+
+      setEntry(data)
+
+    }
+
+    fetchEntry()
+
+  }, [id])
+
+  if(!entry) return <p>Loading...</p>
 
   return (
-    <section className="mt-20 mx-auto max-w-3xl px-4">
-      {/* Back */}
-      <button
-        onClick={onBack}
-        className="mb-8 text-sm text-muted-foreground hover:text-primary transition"
-      >
-        ← Back to memories
-      </button>
 
-      {/* Entry container */}
-      <article className="rounded-2xl border border-border bg-secondary p-6 sm:p-8 shadow-sm">
-        {/* Date */}
-        <time className="block text-xs uppercase tracking-wide text-muted-foreground">
-          {new Date(entry.date).toDateString()}
-        </time>
+    <div className="max-w-3xl mx-auto">
 
-        {/* Title */}
-        <h1 className="mt-4 font-diary text-4xl leading-tight">
-          {entry.title}
-        </h1>
+      <Card>
 
-        {/* Content */}
-        <div className="mt-8 space-y-6 font-diary text-base sm:text-lg leading-relaxed text-primary">
-          {entry.content.split("\n").map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
-        </div>
+        <CardHeader>
 
-        {/* Media */}
-        {(entry.image || entry.audio) && (
-          <div className="mt-10 space-y-6">
-            {entry.image && (
-              <img
-                src={entry.image}
-                alt="Diary memory"
-                className="rounded-xl border border-border"
-              />
-            )}
+          <CardTitle className="flex justify-between">
 
-            {entry.audio && (
-              <audio
-                controls
-                className="w-full"
-                src={entry.audio}
-              />
-            )}
-          </div>
-        )}
-      </article>
-    </section>
-  );
+            {entry.title}
+
+            <span>{entry.mood}</span>
+
+          </CardTitle>
+
+          <p className="text-sm text-muted">
+
+            {new Date(entry.createdAt).toDateString()}
+
+          </p>
+
+        </CardHeader>
+
+        <CardContent className="space-y-4">
+
+          <p>{entry.content}</p>
+
+        </CardContent>
+
+      </Card>
+
+    </div>
+
+  )
+
 }
